@@ -11,8 +11,8 @@ ENV LD_LIBRARY_PATH=/usr/local/cuda/compat:$LD_LIBRARY_PATH
 ADD . ./dl_binder_design/
 
 #Dev stuff
-COPY vimrc /.vimrc
-RUN apt-get update && apt-get install -y vim
+#COPY vimrc /.vimrc
+#RUN apt-get update && apt-get install -y vim
 RUN pip install pyrosetta-installer mock
 RUN python -c 'import pyrosetta_installer; pyrosetta_installer.install_pyrosetta()'
 
