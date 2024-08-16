@@ -29,7 +29,7 @@ steps:
   - name: release server image -- branch
     image: plugins/gcr
     settings:
-      repo: cyrus-containers/
+      repo: cyrus-containers/alphafold-initial-guess
       debug: true
       dockerfile: Dockerfile
       json_key:
