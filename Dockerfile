@@ -1,4 +1,4 @@
-FROM gcr.io/cyrus-containers/alphafold:2.3.2-cuda-11.4.3-ubuntu-18.04
+FROM gcr.io/cyrus-containers/alphafold:2.3.2-cuda-12.2.2-ubuntu-20.04
 
 WORKDIR /app/
 RUN apt-get update
