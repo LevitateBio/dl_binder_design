@@ -1,12 +1,10 @@
-FROM gcr.io/cyrus-containers/alphafold:2.3.2-cuda-12.2.2-ubuntu-20.04
+FROM gcr.io/cyrus-containers/alphafold:1.1.0-alphafold-2.3.2-gpufix-32
 
 WORKDIR /app/
 RUN apt-get update
 RUN apt-get upgrade -y
 
 RUN pip install jaxlib packaging
-
-ENV LD_LIBRARY_PATH=/usr/local/cuda/compat:$LD_LIBRARY_PATH
 
 ADD . ./dl_binder_design/
 
