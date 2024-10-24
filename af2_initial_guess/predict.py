@@ -48,6 +48,8 @@ parser.add_argument( "-outsilent", type=str, default="out.silent", help='The nam
 parser.add_argument( "-runlist", type=str, default='', help="The path of a list of pdb tags to run. Only used when -pdbdir is active (default: ''; Run all PDBs)" )
 parser.add_argument( "-checkpoint_name", type=str, default='check.point', help="The name of a file where tags which have finished will be written (default: check.point)" )
 parser.add_argument( "-scorefilename", type=str, default='out.sc', help="The name of a file where scores will be written (default: out.sc)" )
+parser.add_argument( "-database_mountpoint", type=str, default="/mnt/databases", help='The directory path where params are stored in' )
+parser.add_argument( "-params_database_path", type=str, default="alphafold/latest/params", help='The directory path where params are stored in' )
 parser.add_argument( "-maintain_res_numbering", action="store_true", default=False, help='When active, the model will not renumber the residues when bad inputs are encountered (default: False)' )
 
 parser.add_argument( "-debug", action="store_true", default=False, help='When active, errors will cause the script to crash and the error message to be printed out (default: False)')
@@ -111,7 +113,12 @@ class AF2_runner():
         model_config.data.common.max_extra_msa = 5
         model_config.data.eval.max_msa_clusters = 5
 
-        params_dir = os.path.join(os.path.dirname(os.path.realpath(__file__)),'model_weights')
+        if os.environ.get("DATABASE_MOUNTPOINT") and os.environ.get("AF2_PARAMS_DATABASE_PATH"):
+            params_dir = os.path.join(os.environ.get("DATABASE_MOUNTPOINT"), os.environ.get("AF2_PARAMS_DATABASE_PATH"))
+        elif os.path.exists(os.path.join(os.path.dirname(os.path.realpath(__file__)),'model_weights')):
+            params_dir = os.path.join(os.path.dirname(os.path.realpath(__file__)),'model_weights')
+        elif not os.path.exists(os.path.join(os.path.dirname(os.path.realpath(__file__)),'model_weights')):
+            params_dir = os.path.join(args.database_mountpoint, args.params_database_path)
 
         model_params = data.get_model_haiku_params(model_name=self.model_name, data_dir=params_dir)
 
