@@ -1,4 +1,4 @@
-FROM gcr.io/cyrus-containers/alphafold:1.0.0-alphafold-2.3.2
+FROM gcr.io/cyrus-containers/alphafold:1.1.1-alphafold-2.3.2
 
 WORKDIR /app/
 RUN apt-get update
